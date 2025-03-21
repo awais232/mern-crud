@@ -1,9 +1,15 @@
-import {React, useState, useEffect} from "react";
+import { React, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 // Add FontAwesome for icons
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faEdit, faEye, faTrash, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPlus,
+  faEdit,
+  faEye,
+  faTrash,
+  faUsers,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -11,28 +17,31 @@ const Users = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios.get("http://localhost:3001/users")
+    axios
+      .get("http://localhost:3001/users")
       .then((response) => {
         setUsers(response.data);
         setLoading(false);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error fetching users:", error);
         setLoading(false);
       });
   }, []);
 
-  const handleDelete = (id) => {  
-    if(window.confirm("Are you sure you want to delete this user?")) {
-      axios.delete(`http://localhost:3001/users/${id}`).then((response) => {
-        console.log("Updated users after deletion:", response.data);
-        setUsers(response.data);
-      })
-      .catch(error => {
-        console.error("Error deleting user:", error);
-      });
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      axios
+        .delete(`http://localhost:3001/users/${id}`)
+        .then((response) => {
+          console.log("Updated users after deletion:", response.data);
+          setUsers(response.data);
+        })
+        .catch((error) => {
+          console.error("Error deleting user:", error);
+        });
     }
-  }
+  };
 
   return (
     <div className="min-vh-100 bg-light d-flex flex-column">
@@ -45,7 +54,7 @@ const Users = () => {
           </h1>
         </div>
       </div>
-      
+
       {/* Main Content */}
       <div className="container py-5">
         <div className="card shadow-sm border-0 rounded-3">
@@ -89,20 +98,32 @@ const Users = () => {
                         <td className="align-middle">{user.phone}</td>
                         <td className="text-end">
                           <div className="btn-group">
-                            <Link to={`/users/update/${user._id}`} className="btn btn-sm btn-outline-primary">
+                            <Link
+                              to={`/users/update/${user._id}`}
+                              className="btn btn-sm btn-outline-primary"
+                            >
                               <FontAwesomeIcon icon={faEdit} />
-                              <span className="d-none d-md-inline ms-1">Edit</span>
+                              <span className="d-none d-md-inline ms-1">
+                                Edit
+                              </span>
                             </Link>
-                            <Link to={`/users/user/${user._id}`} className="btn btn-sm btn-outline-success">
+                            <Link
+                              to={`/users/user/${user._id}`}
+                              className="btn btn-sm btn-outline-success"
+                            >
                               <FontAwesomeIcon icon={faEye} />
-                              <span className="d-none d-md-inline ms-1">View</span>
+                              <span className="d-none d-md-inline ms-1">
+                                View
+                              </span>
                             </Link>
-                            <button 
+                            <button
                               className="btn btn-sm btn-outline-danger"
                               onClick={() => handleDelete(user._id)}
                             >
                               <FontAwesomeIcon icon={faTrash} />
-                              <span className="d-none d-md-inline ms-1">Delete</span>
+                              <span className="d-none d-md-inline ms-1">
+                                Delete
+                              </span>
                             </button>
                           </div>
                         </td>
@@ -119,7 +140,7 @@ const Users = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Users;

@@ -1,9 +1,15 @@
-import {React, useState, useEffect} from "react";
+import { React, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 // Add FontAwesome for icons
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faEdit, faEye, faTrash, faBook } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPlus,
+  faEdit,
+  faEye,
+  faTrash,
+  faBook,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Books = () => {
   const [books, setBooks] = useState([]);
@@ -11,28 +17,31 @@ const Books = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios.get("http://localhost:3001/books")
+    axios
+      .get("http://localhost:3001/books")
       .then((response) => {
         setBooks(response.data);
         setLoading(false);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error fetching books:", error);
         setLoading(false);
       });
   }, []);
 
-  const handleDelete = (id) => {  
-    if(window.confirm("Are you sure you want to delete this book?")) {
-      axios.delete(`http://localhost:3001/books/${id}`).then((response) => {
-        console.log("Updated books after deletion:", response.data);
-        setBooks(response.data);
-      })
-      .catch(error => {
-        console.error("Error deleting book:", error);
-      });
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this book?")) {
+      axios
+        .delete(`http://localhost:3001/books/${id}`)
+        .then((response) => {
+          console.log("Updated books after deletion:", response.data);
+          setBooks(response.data);
+        })
+        .catch((error) => {
+          console.error("Error deleting book:", error);
+        });
     }
-  }
+  };
 
   return (
     <div className="min-vh-100 bg-light d-flex flex-column">
@@ -45,13 +54,13 @@ const Books = () => {
           </h1>
         </div>
       </div>
-      
+
       {/* Main Content */}
       <div className="container py-5">
         <div className="card shadow-sm border-0 rounded-3">
           <div className="card-header bg-white d-flex justify-content-between align-items-center py-3">
             <h5 className="mb-0">Book List</h5>
-            <Link to="/books/create" className="btn btn-success btn-sm">  
+            <Link to="/books/create" className="btn btn-success btn-sm">
               <FontAwesomeIcon icon={faPlus} className="me-2" />
               Add Book
             </Link>
@@ -85,20 +94,32 @@ const Books = () => {
                         <td className="align-middle">{book.author}</td>
                         <td className="text-end">
                           <div className="btn-group">
-                            <Link to={`/books/update/${book._id}`} className="btn btn-sm btn-outline-primary">
+                            <Link
+                              to={`/books/update/${book._id}`}
+                              className="btn btn-sm btn-outline-primary"
+                            >
                               <FontAwesomeIcon icon={faEdit} />
-                              <span className="d-none d-md-inline ms-1">Edit</span>
+                              <span className="d-none d-md-inline ms-1">
+                                Edit
+                              </span>
                             </Link>
-                            <Link to={`/books/${book._id}`} className="btn btn-sm btn-outline-success">
+                            <Link
+                              to={`/books/${book._id}`}
+                              className="btn btn-sm btn-outline-success"
+                            >
                               <FontAwesomeIcon icon={faEye} />
-                              <span className="d-none d-md-inline ms-1">View</span>
+                              <span className="d-none d-md-inline ms-1">
+                                View
+                              </span>
                             </Link>
-                            <button 
+                            <button
                               className="btn btn-sm btn-outline-danger"
                               onClick={() => handleDelete(book._id)}
                             >
                               <FontAwesomeIcon icon={faTrash} />
-                              <span className="d-none d-md-inline ms-1">Delete</span>
+                              <span className="d-none d-md-inline ms-1">
+                                Delete
+                              </span>
                             </button>
                           </div>
                         </td>
@@ -110,12 +131,12 @@ const Books = () => {
             )}
           </div>
           <div className="card-footer bg-white text-muted py-2">
-                <small>Total books: {books.length}</small>
+            <small>Total books: {books.length}</small>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Books;
