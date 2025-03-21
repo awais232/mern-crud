@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema({
     email: { type: String, unique: true },
     age: Number,
     phone: String,
+    books: [{ type: mongoose.Schema.Types.ObjectId, ref: "Book" }]
 });
 
 const UserModel = mongoose.model("users", userSchema);

@@ -19,7 +19,7 @@ const CreateUser = () => {
         setLoading(true);
 
         try {
-            await axios.post("http://localhost:3001/createUser", { name, email, age, phone });
+            await axios.post("http://localhost:3001/users/create", { name, email, age, phone });
             navigate("/");
         } catch (err) {
             setError(err.response?.data?.message || "Failed to create user. Please try again.");

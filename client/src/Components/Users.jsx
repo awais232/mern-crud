@@ -11,7 +11,7 @@ const Users = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios.get("http://localhost:3001/")
+    axios.get("http://localhost:3001/users")
       .then((response) => {
         setUsers(response.data);
         setLoading(false);
@@ -22,9 +22,9 @@ const Users = () => {
       });
   }, []);
 
-  const handleDelete = (id) => {
+  const handleDelete = (id) => {  
     if(window.confirm("Are you sure you want to delete this user?")) {
-      axios.delete(`http://localhost:3001/deleteUser/${id}`).then((response) => {
+      axios.delete(`http://localhost:3001/users/${id}`).then((response) => {
         console.log("Updated users after deletion:", response.data);
         setUsers(response.data);
       })

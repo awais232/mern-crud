@@ -18,7 +18,7 @@ const UpdateUser = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/getUser/${id}`);
+                const response = await axios.get(`http://localhost:3001/users/${id}`);
                 setName(response.data.name);
                 setEmail(response.data.email);
                 setAge(response.data.age);
@@ -40,7 +40,7 @@ const UpdateUser = () => {
         setSaving(true);
 
         try {
-            await axios.put(`http://localhost:3001/updateUser/${id}`, { name, email, age, phone });
+            await axios.put(`http://localhost:3001/users/${id}`, { name, email, age, phone });
             navigate("/");
         } catch (err) {
             setError(err.response?.data?.message || "Failed to update user. Please try again.");
