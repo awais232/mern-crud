@@ -6,7 +6,6 @@ import {
   faBook,
   faArrowLeft,
   faEdit,
-  faSpinner,
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 
