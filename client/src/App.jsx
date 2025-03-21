@@ -6,7 +6,7 @@ import Users from './Components/Users'
 import CreateUser from './Components/CreateUser'
 import UpdateUser from './Components/UpdateUser'
 import User from './Components/User'
-
+import Footer from './Components/Footer'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -20,6 +20,7 @@ function App() {
             <Route path='/update/:id' element={<UpdateUser />} />
             <Route path='/user/:id' element={<User />} />
           </Routes>
+          <Footer />
         </BrowserRouter>
       </div>
     </>
