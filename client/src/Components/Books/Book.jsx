@@ -2,27 +2,27 @@ import {React, useState, useEffect} from "react";
 import axios from "axios";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faEnvelope, faCalendarAlt, faArrowLeft, faEdit, faSpinner, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faBook, faArrowLeft, faEdit, faSpinner, faPhone } from '@fortawesome/free-solid-svg-icons';
 
-const User = () => {
-  const [user, setUser] = useState({});
+const Book = () => {
+  const [book, setBook] = useState({});
   const [loading, setLoading] = useState(true);
   const {id} = useParams();
   const navigate = useNavigate();
   
   useEffect(() => {
-    const fetchUser = async () => {
+    const fetchBook = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/users/${id}`);
-        setUser(response.data);
+        const response = await axios.get(`http://localhost:3001/books/${id}`);
+        setBook(response.data);
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        console.error("Error fetching book data:", error);
       } finally {
         setLoading(false);
       }
     };
     
-    fetchUser();
+    fetchBook();
   }, [id]);
   
   if (loading) {
@@ -32,7 +32,7 @@ const User = () => {
           <div className="spinner-border text-primary mb-3" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
-          <p className="text-muted">Loading user information...</p>
+          <p className="text-muted">Loading book information...</p>
         </div>
       </div>
     );
@@ -45,15 +45,15 @@ const User = () => {
         <div className="container">
           <div className="d-flex align-items-center">
             <button 
-              onClick={() => navigate("/")} 
+              onClick={() => navigate("/books")} 
               className="btn btn-outline-light btn-sm me-3"
             >
               <FontAwesomeIcon icon={faArrowLeft} className="me-1" />
               Back
             </button>
             <h1 className="mb-0">
-              <FontAwesomeIcon icon={faUser} className="me-2" />
-              User Profile
+              <FontAwesomeIcon icon={faBook} className="me-2" />
+              Book Details
             </h1>
           </div>
         </div>
@@ -77,28 +77,28 @@ const User = () => {
                         color: "#ffffff",
                         boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)"
                       }}>
-                      <FontAwesomeIcon icon={faUser} />
+                    <FontAwesomeIcon icon={faBook} />
                     </div>
                   </div>
-                  <h2 className="fw-bold mb-1">{user.name || "User Name"}</h2>
-                  <p className="text-muted">Member since {new Date().getFullYear()}</p>
+                  <h2 className="fw-bold mb-1">{book.title || "Book Title"}</h2>
+                  <p className="text-muted">Author: {book.author || "Author Name"}</p>
                 </div>
                 
                 <div className="user-details bg-light rounded-3 p-4 mb-4">
                   <div className="info-item mb-4 pb-3 border-bottom">
                     <div className="d-flex align-items-center">
                       <div className="icon-container me-3 d-flex justify-content-center align-items-center"
-                        style={{
+                        style={{    
                           width: "48px", 
                           height: "48px", 
                           borderRadius: "12px", 
                           background: "rgba(0, 123, 255, 0.1)"
                         }}>
-                        <FontAwesomeIcon icon={faEnvelope} style={{ color: "#007bff" }} className="fs-4" />
+                        <FontAwesomeIcon icon={faBook} style={{ color: "#007bff" }} className="fs-4" /> 
                       </div>
                       <div>
-                        <p className="text-muted mb-0 small text-uppercase">Email</p>
-                        <h5 className="mb-0 mt-1">{user.email || "Not provided"}</h5>
+                        <p className="text-muted mb-0 small text-uppercase">Title</p>
+                        <h5 className="mb-0 mt-1">{book.title || "Not provided"}</h5>
                       </div>
                     </div>
                   </div>
@@ -112,11 +112,11 @@ const User = () => {
                           borderRadius: "12px", 
                           background: "rgba(0, 123, 255, 0.1)"
                         }}>
-                        <FontAwesomeIcon icon={faCalendarAlt} style={{ color: "#007bff" }} className="fs-4" />
+                        <FontAwesomeIcon icon={faBook} style={{ color: "#007bff" }} className="fs-4" />  
                       </div>
                       <div>
-                        <p className="text-muted mb-0 small text-uppercase">Age</p>
-                        <h5 className="mb-0 mt-1">{user.age || "Not provided"}</h5>
+                        <p className="text-muted mb-0 small text-uppercase">Author</p>
+                        <h5 className="mb-0 mt-1">{book.author || "Not provided"}</h5>
                       </div>
                     </div>
                   </div>
@@ -133,23 +133,23 @@ const User = () => {
                       </div>
                       <div>
                         <p className="text-muted mb-0 small text-uppercase">Phone</p>
-                        <h5 className="mb-0 mt-1">{user.phone || "Not provided"}</h5>
+                        <h5 className="mb-0 mt-1">{book.phone || "Not provided"}</h5>
                       </div>
                     </div>
                   </div>
                 </div>
                 
                 <div className="d-grid gap-2">
-                  <Link to={`/update/${id}`} className="btn btn-primary btn-lg">
+                  <Link to={`/books/update/${id}`} className="btn btn-primary btn-lg">
                     <FontAwesomeIcon icon={faEdit} className="me-2" />
-                    Edit Profile
+                    Edit Book
                   </Link>
                   <button 
                     type="button" 
                     className="btn btn-outline-secondary btn-lg"
-                    onClick={() => navigate("/")}
+                    onClick={() => navigate("/books")}
                   >
-                    Back to Users
+                    Back to Books
                   </button>
                 </div>
               </div>
@@ -161,4 +161,4 @@ const User = () => {
   );
 } 
 
-export default User;  
+export default Book;  

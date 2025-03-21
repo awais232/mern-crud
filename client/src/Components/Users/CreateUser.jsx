@@ -19,8 +19,8 @@ const CreateUser = () => {
         setLoading(true);
 
         try {
-            await axios.post("http://localhost:3001/users/create", { name, email, age, phone });
-            navigate("/");
+            await axios.post("http://localhost:3001/users", { name, email, age, phone });
+            navigate("/users");
         } catch (err) {
             setError(err.response?.data?.message || "Failed to create user. Please try again.");
             console.error(err);
@@ -36,7 +36,7 @@ const CreateUser = () => {
                 <div className="container">
                     <div className="d-flex align-items-center">
                         <button 
-                            onClick={() => navigate("/")} 
+                            onClick={() => navigate("/users")}
                             className="btn btn-outline-light btn-sm me-3"
                         >
                             <FontAwesomeIcon icon={faArrowLeft} className="me-1" />

@@ -41,7 +41,7 @@ const UpdateUser = () => {
 
         try {
             await axios.put(`http://localhost:3001/users/${id}`, { name, email, age, phone });
-            navigate("/");
+            navigate("/users");
         } catch (err) {
             setError(err.response?.data?.message || "Failed to update user. Please try again.");
             console.error(err);
@@ -70,7 +70,7 @@ const UpdateUser = () => {
                 <div className="container">
                     <div className="d-flex align-items-center">
                         <button 
-                            onClick={() => navigate("/")} 
+                            onClick={() => navigate("/users")} 
                             className="btn btn-outline-light btn-sm me-3"
                         >
                             <FontAwesomeIcon icon={faArrowLeft} className="me-1" />
@@ -172,7 +172,7 @@ const UpdateUser = () => {
                                         <button 
                                             type="button" 
                                             className="btn btn-outline-secondary btn-lg"
-                                            onClick={() => navigate("/")}
+                                            onClick={() => navigate("/users")}
                                         >
                                             Cancel
                                         </button>
